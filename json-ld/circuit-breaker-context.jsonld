@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "cb": "https://api-evangelist.github.io/circuit-breaker/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "CircuitBreaker": {
+      "@id": "cb:CircuitBreaker",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "state": {
+          "@id": "cb:state",
+          "@type": "cb:State"
+        },
+        "failureThreshold": "cb:failureThreshold",
+        "successThreshold": "cb:successThreshold",
+        "timeoutMs": "cb:timeoutMs",
+        "windowSize": "cb:windowSize",
+        "resetTimeoutMs": "cb:resetTimeoutMs",
+        "minimumNumberOfCalls": "cb:minimumNumberOfCalls",
+        "slidingWindowType": "cb:slidingWindowType",
+        "permittedCallsInHalfOpen": "cb:permittedCallsInHalfOpen"
+      }
+    },
+
+    "State": {
+      "@id": "cb:State",
+      "@context": {
+        "CLOSED": "cb:Closed",
+        "OPEN": "cb:Open",
+        "HALF_OPEN": "cb:HalfOpen"
+      }
+    },
+
+    "StateTransition": {
+      "@id": "cb:StateTransition",
+      "@context": {
+        "from": "cb:fromState",
+        "to": "cb:toState",
+        "reason": "schema:description",
+        "occurredAt": {
+          "@id": "schema:dateTime",
+          "@type": "xsd:dateTime"
+        },
+        "metrics": "cb:metrics"
+      }
+    },
+
+    "Metrics": {
+      "@id": "cb:Metrics",
+      "@context": {
+        "totalCalls": "cb:totalCalls",
+        "successfulCalls": "cb:successfulCalls",
+        "failedCalls": "cb:failedCalls",
+        "slowCalls": "cb:slowCalls",
+        "rejectedCalls": "cb:rejectedCalls",
+        "failureRate": "cb:failureRate",
+        "slowCallRate": "cb:slowCallRate"
+      }
+    },
+
+    "Fallback": {
+      "@id": "cb:Fallback",
+      "@context": {
+        "type": "cb:fallbackType",
+        "value": "cb:fallbackValue",
+        "description": "schema:description"
+      }
+    }
+  }
+}

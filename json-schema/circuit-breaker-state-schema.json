@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circuit-breaker/main/json-schema/circuit-breaker-state-schema.json",
+  "title": "Circuit Breaker State",
+  "description": "Runtime state of a circuit breaker, suitable for status endpoints, dashboards, and monitoring exports.",
+  "type": "object",
+  "required": ["name", "state"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Logical name of the breaker; usually matches the protected resource."
+    },
+    "state": {
+      "type": "string",
+      "enum": ["CLOSED", "OPEN", "HALF_OPEN", "DISABLED", "FORCED_OPEN"],
+      "description": "Current breaker state."
+    },
+    "lastTransitionAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "totalCalls": { "type": "integer", "minimum": 0 },
+        "successfulCalls": { "type": "integer", "minimum": 0 },
+        "failedCalls": { "type": "integer", "minimum": 0 },
+        "slowCalls": { "type": "integer", "minimum": 0 },
+        "rejectedCalls": { "type": "integer", "minimum": 0 },
+        "failureRate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "slowCallRate": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "lastError": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "message": { "type": "string" },
+        "occurredAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

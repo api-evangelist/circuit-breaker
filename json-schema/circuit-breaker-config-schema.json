@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circuit-breaker/main/json-schema/circuit-breaker-config-schema.json",
+  "title": "Circuit Breaker Configuration",
+  "description": "Common configuration vocabulary distilled from Resilience4j, Polly, opossum, and gobreaker. Implementations expose subsets of these fields under different names.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Logical name of the breaker."
+    },
+    "failureRateThreshold": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percent of failed calls that opens the breaker (default 50)."
+    },
+    "slowCallRateThreshold": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percent of slow calls that opens the breaker."
+    },
+    "slowCallDurationThreshold": {
+      "type": "string",
+      "pattern": "^PT.*$",
+      "description": "ISO 8601 duration above which a call is considered slow."
+    },
+    "minimumNumberOfCalls": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Minimum sample size before failure rate is evaluated."
+    },
+    "slidingWindowType": {
+      "type": "string",
+      "enum": ["COUNT_BASED", "TIME_BASED"]
+    },
+    "slidingWindowSize": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "waitDurationInOpenState": {
+      "type": "string",
+      "pattern": "^PT.*$",
+      "description": "How long the breaker stays open before transitioning to half-open."
+    },
+    "permittedCallsInHalfOpenState": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "automaticTransitionFromOpenToHalfOpen": {
+      "type": "boolean"
+    },
+    "recordExceptions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Exception types that count as failures."
+    },
+    "ignoreExceptions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Exception types that are neither successes nor failures."
+    },
+    "fallback": {
+      "type": "object",
+      "description": "Optional fallback strategy when the breaker is open."
+    }
+  },
+  "additionalProperties": true
+}
