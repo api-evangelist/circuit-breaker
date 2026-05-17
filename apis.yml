@@ -10,7 +10,7 @@ tags:
   - Patterns
   - Resilience
   - Stability
-type: Topic
+kind: topic
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-01-01'
@@ -38,7 +38,7 @@ common:
     url: https://learn.microsoft.com/azure/architecture/patterns/retry
   - type: Book
     url: https://pragprog.com/titles/mnee2/release-it-second-edition/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/circuit-breaker-context.jsonld
   - type: JSONSchema
     url: json-schema/circuit-breaker-state-schema.json
